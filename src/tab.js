@@ -1,14 +1,17 @@
+const menuList = ["Pot Rice", "Pork Soup", "Hamburger Steak", "Veggie Gratin", "Special Doughnuts", "Gyoza", "Gohei Mochi", "Squid and Taro Stew", "Curry", "Namero and Sangayaki", "Sweet Potato Crêpe", "Okonomiyaki"];
+const chefList = {"Kohei Inuzuka":"https://vignette.wikia.nocookie.net/amaama-to-inazuma/images/6/63/Kouheiprofilesize.jpg",
+ "Tsumugi Inuzuka":"https://vignette.wikia.nocookie.net/amaama-to-inazuma/images/1/14/Tsumugiprofilesize.jpg",
+ "Kotori Iida": "https://vignette.wikia.nocookie.net/amaama-to-inazuma/images/c/c3/Kotoriprofilesize.png"};
+
 function makeTab(tabTitle)
 {
   let tabContentDiv = document.createElement("div");
-  tabContentDiv.style.backgroundColor = "rgba(255,255,255, 0.8)";
-  tabContentDiv.style.width = "100%";
-  tabContentDiv.style.display = "None";
-  tabContentDiv.style.order = "99";
+  tabContentDiv.classList.add("tab");
   switch(tabTitle)
   {
     case 'Our Chef':
       generateChefTab(tabContentDiv);
+      tabContentDiv.style.display = "block";
       break;
     case 'Our Menu':
       generateMenuTab(tabContentDiv);
@@ -20,7 +23,7 @@ function makeTab(tabTitle)
   return tabContentDiv;
 };
 
-function generateListFromArray(arr)
+function generateImgListFromDict(arr)
 {
   const list = document.createElement("ul");
   list.style.textAlign = "center";
@@ -28,17 +31,8 @@ function generateListFromArray(arr)
   {
     let image = document.createElement("img");
     let item = document.createElement("li");
-    image.style.borderRadius = "50%";
     image.src=arr[i];
-    image.style.width = "25vh";
-    image.style.height = "25vh";
-    image.style.display = "block";
-    image.style.objectFit = "cover";
-    image.style.margin = "0 auto 0 auto";
-    image.style.backgroundPosition = "center center";
-    image.style.backgroundRepeat = "no-repeat";
     item.style.display = "inline";
-    item.style.width = "33%";
     item.innerText = i;
 
     item.appendChild(image);
@@ -47,25 +41,43 @@ function generateListFromArray(arr)
   return list;
 }
 
+function generateListFromArr(arr)
+{
+  const list = document.createElement("ul");
+  list.style.textAlign = "center";
+  for( let i of arr)
+  {
+    let item = document.createElement("li");
+    item.innerText = i;
+    list.appendChild(item);
+  }
+  return list;
+}
+
+
 function generateChefTab(tabContentDiv)
 {
-  const chefList = {"Kohei Inuzuka":"https://vignette.wikia.nocookie.net/amaama-to-inazuma/images/6/63/Kouheiprofilesize.jpg",
-   "Tsumugi Inuzuka":"https://vignette.wikia.nocookie.net/amaama-to-inazuma/images/1/14/Tsumugiprofilesize.jpg",
-   "Kotori Iida": "https://vignette.wikia.nocookie.net/amaama-to-inazuma/images/c/c3/Kotoriprofilesize.png"};
+
   //const header = document.createElement("h3");
   //header.innerText = "Our Chef";
   //tabContentDiv.appendChild(header);
-  tabContentDiv.appendChild(generateListFromArray(chefList));
+  tabContentDiv.appendChild(generateImgListFromDict(chefList));
 }
 
-function generateMenuTab()
+function generateMenuTab(tabContentDiv)
 {
-
+  tabContentDiv.appendChild(generateListFromArr(menuList));
 }
 
-function generateContactTab()
+function generateContactTab(tabContentDiv)
 {
-
+  const linkDiv = document.createElement("div");
+  linkDiv.id = "linkDiv";
+  const link = document.createElement("a");
+  link.setAttribute("href", "https://amaama-to-inazuma.fandom.com/wiki/Amaama_to_Inazuma_Wikia");
+  link.innerText = "Check us out on our fandom wiki";
+  linkDiv.appendChild(link);
+  tabContentDiv.appendChild(linkDiv);
 }
 
 

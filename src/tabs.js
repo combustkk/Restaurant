@@ -5,15 +5,34 @@ function makeTabs()
   let tabsDiv = document.createElement("div");
   tabsDiv.style.display="flex";
   tabsDiv.style.flexWrap="wrap";
-  tabsDiv.style.justifyContent = "flex-end";
+  tabsDiv.style.justifyContent = "space-between";
+
+  function changeLabel(e)
+  {
+    const radios = document.querySelectorAll("input[type=\"radio\"]");
+    radios.forEach((r)=>{
+      if(r != e.target)
+      {
+        r.nextSibling.style.backgroundColor = "rgba(0,0,0,0.8)";
+        r.nextSibling.style.color = "rgba(255,255,255,1)"
+        r.nextSibling.nextSibling.style.display = "None";
+      }
+      else {
+        r.nextSibling.style.backgroundColor = "rgba(255,255,255, 0.8)";
+        r.nextSibling.style.color = "rgba(0,0,0,1)"
+        r.nextSibling.nextSibling.style.display = "block";
+      }
+    });
+  }
+
   let addLabelInputStyle = function(labelElement, inputElement)
   {
-    labelElement.style.display = "block";
-    labelElement.style.padding = "1rem 2rem";
-    labelElement.style.cursor = "pointer";
-    labelElement.style.marginRight = "0.2rem";
-    labelElement.style.backgroundColor="#90CAF9";
     inputElement.style.display = "none";
+    if(counter == 1)
+    {
+      labelElement.style.color = "rgba(0, 0, 0, 1)"
+      labelElement.style.backgroundColor = "rgba(255,255,255, 0.8)";
+    }
   };
   let addTabLabel = function(tabTitle)
   {
@@ -23,17 +42,7 @@ function makeTabs()
     inputElement.setAttribute("name", "radioFam");
     inputElement.addEventListener("click", (e)=>
     {
-      const radios = document.querySelectorAll("input[type=\"radio\"]");
-      radios.forEach((r)=>{
-        if(r != e.target)
-        {
-          r.nextSibling.style.backgroundColor = "#90CAF9";
-        }
-        else {
-          r.nextSibling.style.backgroundColor = "#FFF";
-          r.nextSibling.nextSibling.style.display = "block";
-        }
-      });
+      changeLabel(e);
     });
     let labelElement = document.createElement("label");
     labelElement.setAttribute("for", `tab${counter}`);
