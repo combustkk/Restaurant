@@ -1,1 +1,1 @@
-# Restaurant Sweetness and Lightningh restaurant page by a weeb
+# Restaurant Sweetness and Lightningh restaurant page
